@@ -48,13 +48,26 @@ The headers exchange acts like the topic exchange, but offers more flexibility. 
 
 
 \subsection{Distribution of Brokers}
+Developing distributed systems, the most common way is to let all machines connect to a single RabbitMQ broker. However there might be cases where one broker is not sufficient. In cases like this RabbitMQ provides mechanisms where the broker itself is distributed \cite{pivotal:distributed}. The following shows the three appreoaches which are provided.
 
+\subsubsection{Clustering}
+Clustering connects RabbitMQ brokers to a logical grouping. I can mirror whole Virtual Nodes or just exchanges across all brokers in a cluster. The user can then decide whether to locate queues on a single node, or also to mirror them. The approach of clustering provides a higher availability and increases the throughput.
+
+\subsubsection{Federation}
+Federation addresses a different need than clustering. It allows exchanges or queues on one broker to receive messages that are sent to another exchange or queue on a different broker. This allows to connect brokers through the internet and provides the delivery of messages between them.
+
+\subsubsection{The Shovel}
+The Shovel works similar to the Federation but it provides more control. It simply consumes messages and forwards them to the exchange of another broker. This is done in a lower level than the Federation does.
+
+\subsection{Summary}
+RabbitMQ and its underlying AMQP model represent a great message broker for distributed systems. Different exchange types provide filter mechanisms that allow routing rules for different needs. AMQP decouples the message delivery from the used programming language. In addition to that mechanisms for error handling and guaranteed delivery of messages make RabbitMQ a great messaging service. It's not just open source it can also easily extended by plugins. These provide for example additional messaging protocols like STOMP and MQTT, which will be briefly described in \Cref{sec:protocols}.
 
 \section{Comparison}
 
 \subsection{Clustering}
 
 \subsection{Messaging Protocols}
+\label{sec:protocols}
 
 \subsection{Message Delivery Performance}
 
